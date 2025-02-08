@@ -1,0 +1,53 @@
+// Libraray
+import express from "express";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+
+// Models
+import { UserModel } from '../../database/allModelsIndex';
+
+// create a router
+
+const Router = express.Router();
+
+/**
+ * Router       /signup
+ * Des          Register new user
+ * Params       none
+ * Access       Public
+ * Method       Post
+ */
+
+Router.post("/signup", async (req, res) => {
+    try {
+        await UserModel.findByEmailAndPhone(req.body.credentials);
+        // Save the data to the database
+        const newUser = await UserModel.create(req.body.credentials);
+
+        const token = newUser.generateJwtToken();
+        // generate the JWT auth token  (for authorizing the user Jsonwebtoken)
+
+        return res.status(200).json({ token, status: "success" });
+
+    }
+    catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+})
+
+Router.post("/signin", async (req, res) => {
+    try {
+        const user = await UserModel.findByEmailAndPassword(req.body.credentials);
+        console.log(user);
+        const token = user.generateJwtToken();
+        console.log(token);
+        return res.status(200).json({ token, status: "success" });
+
+    }
+    catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+
+})
+
+export default Router;
