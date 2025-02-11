@@ -2,9 +2,11 @@
 import express from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import passport from "passport";
 
 // Models
 import { UserModel } from '../../database/allModelsIndex';
+
 
 // create a router
 
@@ -26,14 +28,14 @@ Router.post("/signup", async (req, res) => {
 
         const token = newUser.generateJwtToken();
         // generate the JWT auth token  (for authorizing the user Jsonwebtoken)
-
-        return res.status(200).json({ token, status: "success" });
+        console.log(token);
+        return res.status(200).json({ token: token, status: "success" });
 
     }
     catch (error) {
         return res.status(500).json({ error: error.message });
     }
-})
+});
 
 Router.post("/signin", async (req, res) => {
     try {
@@ -41,13 +43,47 @@ Router.post("/signin", async (req, res) => {
         console.log(user);
         const token = user.generateJwtToken();
         console.log(token);
-        return res.status(200).json({ token, status: "success" });
+        return res.status(200).json({ token: token, status: "success" });
 
     }
     catch (error) {
         return res.status(500).json({ error: error.message });
     }
 
-})
+});
+
+/**
+ * Router       /google
+ * Des          Google Signin
+ * Params       none
+ * Access       public
+ * Method       Get
+ */
+
+Router.get("/google", passport.authenticate("google", {
+    // scope is that whatever you want to get from the google account of user
+    scope: [
+        "https://www.googleapis.com/auth/userinfo.profile",
+        "https://www.googleapis.com/auth/userinfo.email",
+
+    ],
+
+}));
+
+/**
+ * Router       /google/callback
+ * Des          Google Signin callback
+ * Params       none
+ * Access       public
+ * Method       Get
+ */
+
+Router.get("/google/callback", passport.authenticate("google", { failureRedirect: "/" }),
+    (req, res) => {
+        return res.status(200).json({ token: req.session.passport.user.token, status: "success" });
+        console.log(token);
+    }
+)
+
 
 export default Router;
