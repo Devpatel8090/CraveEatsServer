@@ -16,7 +16,11 @@ const helmet = require('helmet');
 import ConnectDB from "./database/connection";
 
 //  google authentication config
-import googleAuthConfig from './config/google.config';
+import googleAuthConfig from "./config/google.config";
+
+// private route authentication config
+import privateRouteConfig from "./config/route.config";
+
 
 // API
 import Auth from "./API/Auth/index";
@@ -24,11 +28,15 @@ import Restaurant from "./API/Restaurant/index";
 import Food from "./API/Food/index";
 import Menu from "./API/Menu/index";
 import Image from "./API/Image/index";
+import Order from "./API/Orders/index";
+import Review from "./API/Reviews/index";
+import User from "./API/User/index";
 
 
 
 // passport config
 googleAuthConfig(passport);
+privateRouteConfig(passport);
 
 const foodieApp = express();   // tells app to use express
 foodieApp.use(cors());  // middle wares(additional functionality(Please accept all the request)) (for cross origin request(redirect from google.com/dev to amzon.com/chai.   fronted and backend hosted on different website (cors should be set up only on one side either backend or frontend) ))
@@ -52,7 +60,9 @@ foodieApp.use("/restaurant", Restaurant);
 foodieApp.use("/food", Food);
 foodieApp.use("/menu", Menu);
 foodieApp.use("/image", Image);
-
+foodieApp.use("/order", Order);
+foodieApp.use("/review", Review);
+foodieApp.use("/user", User);
 
 
 foodieApp.listen(3000, () => {

@@ -1,8 +1,11 @@
 // Libraries
 import express from "express";
-
+import passport from "passport";
 // import database model
 import { OrderModel } from "../../database/order/orderModel";
+
+// Validate user
+import ValidateUser from "../../config/validateUser.config";
 
 const Router = express.Router();
 
@@ -10,12 +13,13 @@ const Router = express.Router();
  * Route        /
  * Des          Get all the orders based on id
  * params       _id
- * Access       public
+ * Access       private
  * method       Get
  */
 
-Router.get("/:_id", async (req, res) => {
+Router.get("/:_id", passport.authenticate("jwt"), ValidateUser, async (req, res) => {
     try {
+        // await ValidateUser(req, res);
         const { _id } = req.params;
         const getOrders = await OrderModel.findOne({ user: _id });
 
@@ -38,8 +42,9 @@ Router.get("/:_id", async (req, res) => {
  * method       Post or put
  */
 
-Router.post("/new/:_id", async (req, res) => {
+Router.post("/new/:_id", passport.authenticate("jwt"), ValidateUser, async (req, res) => {
     try {
+        // await ValidateUser(req, res);
         const { _id } = req.params;
         const { orderDetails } = req.body;
 

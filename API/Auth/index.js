@@ -7,6 +7,9 @@ import passport from "passport";
 // Models
 import { UserModel } from '../../database/allModelsIndex';
 
+// Validation
+import { ValidateSignin, ValidateSignup } from "../../Validation/auth.validation";
+
 
 // create a router
 
@@ -22,6 +25,7 @@ const Router = express.Router();
 
 Router.post("/signup", async (req, res) => {
     try {
+        await ValidateSignup(req.body.credentials);
         await UserModel.findByEmailAndPhone(req.body.credentials);
         // Save the data to the database
         const newUser = await UserModel.create(req.body.credentials);
@@ -39,6 +43,7 @@ Router.post("/signup", async (req, res) => {
 
 Router.post("/signin", async (req, res) => {
     try {
+        await ValidateSignin(req.body.credentials);
         const user = await UserModel.findByEmailAndPassword(req.body.credentials);
         console.log(user);
         const token = user.generateJwtToken();
