@@ -5,6 +5,9 @@ import express from "express";
 // Database Modal
 import RestaurantModel from "../../database/allModelsIndex";
 
+// Validation
+import { ValidateRestaurantSearchString, ValidateRestaurantCity } from "../../Validation/restaurant.validation";
+import { ValidateId } from "../../Validation/common.validation";
 
 const Router = express.Router();
 
@@ -20,6 +23,7 @@ Router.get('/', async (req, res) => {
     try {
         // http://Localhost:4000/restaurant/?city=ncr
         // destructuring
+        await ValidateRestaurantCity(city)
         const { city } = req.query;
         const restaurants = await RestaurantModel.find({ city });
         if (restaurants.length === 0) {
@@ -37,13 +41,14 @@ Router.get('/', async (req, res) => {
 /**
  * Route           /:_id  
  * Des              Get individual restaurant details based on id
- * Params           none
+ * Params           _id
  * Access           Public
  * Method           GET
  */
 
 Router.get('/:_id', async (req, res) => {
     try {
+        await ValidateId(_id);
         const { _id } = res.params;
         const restaurant = await RestaurantModel.findById(_id);
         if (!restaurant) {
@@ -60,13 +65,14 @@ Router.get('/:_id', async (req, res) => {
 /**
  * Route           /search  
  * Des              Get restaurant details based on search string
- * Params           none
+ * Params           searchString
  * Access           Public
  * Method           GET
  */
 
 Router.get('/search/:searchString', async (req, res) => {
     try {
+        await ValidateRestaurantSearchString(searchString);
         const { searchString } = req.params;
         const restaurants = await RestaurantModel.find({
             name: { $regex: searchString, $options: "i" }
