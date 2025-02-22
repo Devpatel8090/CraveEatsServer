@@ -18,7 +18,7 @@ function MobileNav() {
                 {user?.fullName ? (
                     <>
                         <div onClick={() => setIsDropDownOpen((prev) => !prev)} className="border p-2 border-gray-300 text-CraveEats-400 w-20 h-20 rounded-full">
-                            <img src='https://www.svgrepo.com/show/384674/account-avatar-profile-user-11.svg' alt="" className="w-full h-full rounded-full object-cover" />
+                            <img src='/man.png' alt="" className="w-full h-full rounded-full object-cover" />
                         </div>
                         {isDropDownOpen && (
                             <div className="absolute shadow-lg py-3 -bottom-20 -right-4 w-full bg-white z-20 flex flex-col gap-2 ">
@@ -74,7 +74,7 @@ function LargeNav() {
                 {user?.fullName ? (
                     <div className="relative w-20">
                         <div onClick={() => setIsDropDownOpen((prev) => !prev)} className="border border-gray-300 text-CraveEats-400 w-full h-20 rounded-full">
-                            <img src='https://www.svgrepo.com/show/384674/account-avatar-profile-user-11.svg' alt="" className="w-full h-full rounded-full object-cover" />
+                            <img src='/man.png' alt="" className="w-full h-full rounded-full object-cover" />
                         </div>
                         {isDropDownOpen && (
                             <div className="absolute shadow-lg py-3 -bottom-20 -right-4 w-full bg-white z-20 flex flex-col gap-2 ">

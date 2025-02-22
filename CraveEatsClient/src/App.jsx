@@ -15,6 +15,7 @@ function App() {
     <>
 
       <HomeLayoutHoc component={HomePage} path="/" />
+      <HomeLayoutHoc component={HomePage} path="/:type" />
 
     </>
   )
