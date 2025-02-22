@@ -38,34 +38,34 @@ import User from "./API/User/index";
 googleAuthConfig(passport);
 privateRouteConfig(passport);
 
-const foodieApp = express();   // tells app to use express
-foodieApp.use(cors());  // middle wares(additional functionality(Please accept all the request)) (for cross origin request(redirect from google.com/dev to amzon.com/chai.   fronted and backend hosted on different website (cors should be set up only on one side either backend or frontend) ))
-foodieApp.use(express.json()); // body parcel middleware(parse the body in json)
-foodieApp.use(express.urlencoded({ extended: true }));
-foodieApp.use(helmet());      // for security purpose(securing express by giving various http headers)
-foodieApp.use(
+const craveEats = express();   // tells app to use express
+craveEats.use(cors());  // middle wares(additional functionality(Please accept all the request)) (for cross origin request(redirect from google.com/dev to amzon.com/chai.   fronted and backend hosted on different website (cors should be set up only on one side either backend or frontend) ))
+craveEats.use(express.json()); // body parcel middleware(parse the body in json)
+craveEats.use(express.urlencoded({ extended: true }));
+craveEats.use(helmet());      // for security purpose(securing express by giving various http headers)
+craveEats.use(
     session({
         secret: process.env.SESSION_SECRET_KEY
     }));
 
-foodieApp.use(passport.initialize()); // passport initialized
-foodieApp.use(passport.session()); // session is available through out the website
+craveEats.use(passport.initialize()); // passport initialized
+craveEats.use(passport.session()); // session is available through out the website
 
 // passport config
 
 
 // Applicatino Routes
-foodieApp.use("/auth", Auth);
-foodieApp.use("/restaurant", Restaurant);
-foodieApp.use("/food", Food);
-foodieApp.use("/menu", Menu);
-foodieApp.use("/image", Image);
-foodieApp.use("/order", Order);
-foodieApp.use("/review", Review);
-foodieApp.use("/user", User);
+craveEats.use("/auth", Auth);
+craveEats.use("/restaurant", Restaurant);
+craveEats.use("/food", Food);
+craveEats.use("/menu", Menu);
+craveEats.use("/image", Image);
+craveEats.use("/order", Order);
+craveEats.use("/review", Review);
+craveEats.use("/user", User);
 
 
-foodieApp.listen(3000, () => {
+craveEats.listen(3000, () => {
     ConnectDB().then(() => {
         console.log("server is running!!!");
     }).catch((error) => {
@@ -75,6 +75,6 @@ foodieApp.listen(3000, () => {
 });
 
 
-foodieApp.get("/", (req, res) => {
-    return res.json({ "welcome": `to my backend software for the foodieApp-Master` });
+craveEats.get("/", (req, res) => {
+    return res.json({ "welcome": `to my backend software for the craveEats-Master` });
 })
