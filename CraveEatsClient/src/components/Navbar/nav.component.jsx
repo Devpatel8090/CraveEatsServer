@@ -98,7 +98,7 @@ function LargeNav() {
     )
 }
 export default function Navbar() {
-    return (<nav className="p-4 flex bg-white shadow-md lg:shadow-none w-full w-full items-center">
+    return (<nav className="p-4 flex bg-white shadow-md lg:shadow-none w-full  items-center">
         <MobileNav />
         <LargeNav />
     </nav>
