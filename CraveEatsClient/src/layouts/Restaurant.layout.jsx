@@ -1,11 +1,16 @@
 import React, { useState } from "react";
+import { TiStarOutline } from "react-icons/ti";
+import { RiDirectionLine, RiShareForwardLine } from "react-icons/ri";
+import { BiBookmarkPlus } from "react-icons/bi";
 
 // components
 import Navbar from "../components/Navbar/nav.component";
 import ImageGrid from "../components/Restaurant/ImageGrid.component";
 import RestaurantInfo from "../components/Restaurant/RestaurantInfo.component";
+import Tabs from "../components/Restaurant/Tabs.component";
+import InfoButtonsTabs from "../components/Restaurant/InfoButtonsTabs.component";
 
-function RestaurantLayout() {
+function RestaurantLayout({ children }) {
     const [restaurant, setRestaurant] = useState({
         images: [
             "https://b.zmtcdn.com/data/pictures/chains/3/307893/ac9e6b3236967e1e255e14e24cc0c9e7.jpg",
@@ -35,6 +40,24 @@ function RestaurantLayout() {
                     cuisine={restaurant?.cuisine}
                     address={restaurant?.address}
                 />
+                <div className="my-4 flex flex-wrap gap-3 mx-auto">
+                    <InfoButtonsTabs isActive={true}>
+                        <TiStarOutline /> Add Review
+                    </InfoButtonsTabs>
+                    <InfoButtonsTabs>
+                        <RiDirectionLine /> Direction
+                    </InfoButtonsTabs>
+                    <InfoButtonsTabs>
+                        <BiBookmarkPlus /> Bookmark
+                    </InfoButtonsTabs>
+                    <InfoButtonsTabs>
+                        <RiShareForwardLine /> Share
+                    </InfoButtonsTabs>
+                </div>
+                <div className="my-10">
+                    <Tabs />
+                </div>
+                {children}
             </div>
         </>
     );
