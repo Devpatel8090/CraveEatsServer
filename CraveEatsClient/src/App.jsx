@@ -6,16 +6,22 @@ import Slider from 'react-slick';
 //HOC
 import HomeLayoutHoc from './HOC/Home.hoc';
 import RestaurantLayoutHoc from './HOC/Restaurant.HOC';
+import CheckoutLayoutHoc from './HOC/Checkout.HOC';
 
 
 // Pages
 import HomePage from "./pages/HomePage";
 import RestaurantPage from "./pages/RestaurantPage";
+import CheckoutPage from './pages/CheckOutPage';
+
+
+// Components
 import Overview from './components/Restaurant/OverView.component';
 import OrderOnline from './components/Restaurant/OrderOnline.component';
 import Reviews from './components/Restaurant/Reviews/Reviews.component';
 import Menu from './components/Restaurant/Menu/Menu.component';
 import Photos from './components/Restaurant/Photos/Photos.component';
+
 
 function App() {
 
@@ -38,7 +44,9 @@ function App() {
           <Route path="menu" element={<Menu />} />
           <Route path="photos" element={<Photos />} />
         </Route>
+        <Route path="/checkout/orders" element={<CheckoutLayoutHoc component={CheckoutPage} />} />
       </Routes>
+
       {/* <RestaurantLayoutHoc path="/restaurant/:id" exact component={RestaurantPage} />
       <RestaurantLayoutHoc
         path="/restaurant/:id/overview"
