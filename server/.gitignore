@@ -9,7 +9,7 @@ logs/
 *.log
 
 # Ignore database files (if any)
-database/
+
 *.sqlite
 *.db
 *.db-wal

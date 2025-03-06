@@ -88,14 +88,14 @@ function DeliveryCarousel() {
                 Inspiration for yout first order
             </h1>
             <div className='lg:hidden flex gap-3 lg:gap-0 flex-wrap justify-between'>
-                {categories.map((food) => (
-                    <DeliveryCategory {...food} />
+                {categories.map((food, index) => (
+                    <DeliveryCategory {...food} key={index} />
                 ))}
             </div>
             <div className='hidden lg:block' >
                 <Slider {...settings}>
-                    {categories.map((food) => (
-                        <DeliveryCategory {...food} />
+                    {categories.map((food, index) => (
+                        <DeliveryCategory {...food} key={index} />
                     ))}
                 </Slider>
             </div>

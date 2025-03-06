@@ -4,7 +4,7 @@ import { AiTwotoneStar } from "react-icons/ai";
 
 function RestaurantCard(props) {
 
-    console.log(props);
+
     return (
 
         <Link to={`/restaurant/${props._id}`} className="w-full md:w-1/2 lg:w-1/3">
