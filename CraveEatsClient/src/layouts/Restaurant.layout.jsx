@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TiStarOutline } from "react-icons/ti";
 import { RiDirectionLine, RiShareForwardLine } from "react-icons/ri";
 import { BiBookmarkPlus } from "react-icons/bi";
@@ -10,23 +10,53 @@ import RestaurantInfo from "../components/Restaurant/RestaurantInfo.component";
 import Tabs from "../components/Restaurant/Tabs.component";
 import InfoButtonsTabs from "../components/Restaurant/InfoButtonsTabs.component";
 
+import { useParams } from "react-router-dom";
+
+// Redux
+import { useDispatch } from "react-redux";
+import { getSpecificRestaurant } from "../redux/reducers/restaurant/restaurant.actions";
+import { getImage } from "../redux/reducers/Image/image.action";
+
 function RestaurantLayout({ children }) {
     const [restaurant, setRestaurant] = useState({
-        images: [
-            "https://b.zmtcdn.com/data/pictures/chains/3/307893/ac9e6b3236967e1e255e14e24cc0c9e7.jpg",
-            "https://b.zmtcdn.com/data/pictures/chains/3/307893/69f1fa33c357f755f7021b7e35d59380.jpg",
-            "https://b.zmtcdn.com/data/pictures/chains/3/307893/ab32e4d69281d2eb639cb9ae4850e972.jpg",
-            "https://b.zmtcdn.com/data/pictures/chains/3/307893/69f1fa33c357f755f7021b7e35d59380.jpg",
-            "https://b.zmtcdn.com/data/pictures/chains/3/307893/ab32e4d69281d2eb639cb9ae4850e972.jpg",
-        ],
-        name: "Bakehouse Comfort",
-        cuisine: "Bakery, Desserts, Fast Food",
-        address: "Biryani, Hyderabadi, Andhra, North Indian, Chinese, Desserts",
+        images: [],
+        name: "",
+        cuisine: "",
+        address: "",
         restaurantRating: 4.1,
         deliveryRating: 3.2,
     });
 
-    const [images, setImages] = useState([]);
+    const { id } = useParams();
+    const dispatch = useDispatch();
+
+    console.log(id);
+
+    useEffect(() => {
+        dispatch(getSpecificRestaurant(id)).then((data) => {
+            console.log("API Response:", data); // Debugging line
+
+            if (!data.payload || !data.payload.restaurant) {
+                console.error("Restaurant data is undefined!");
+                return;
+            }
+            setRestaurant((prev) => ({
+                ...prev,
+                ...data.payload.restaurant,
+            }));
+            console.log(data.payload);
+            if (data.payload.restaurant.photos) {
+                dispatch(getImage(data.payload.restaurant.photos)).then((imageData) => {
+                    console.log("Image API Response:", imageData);
+                    setRestaurant((prev) => ({
+                        ...prev,
+                        images: imageData.payload?.images || [],
+                    }));
+                });
+            }
+
+        });
+    }, [id, dispatch]);
 
     return (
         <>
@@ -39,6 +69,7 @@ function RestaurantLayout({ children }) {
                     deliveryRating={restaurant?.deliveryRating || 0}
                     cuisine={restaurant?.cuisine}
                     address={restaurant?.address}
+                    restaurantTimings={restaurant?.restaurantTimings}
                 />
                 <div className="my-4 flex flex-wrap gap-3 mx-auto">
                     <InfoButtonsTabs isActive={true}>

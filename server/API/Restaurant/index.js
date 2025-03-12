@@ -1,6 +1,6 @@
 // Libraries
 import express from "express";
-
+import mongoose from "mongoose";
 
 // Database Modal
 import { RestaurantModel } from "../../database/allModelsIndex";
@@ -31,6 +31,7 @@ Router.get('/', async (req, res) => {
 
         console.log(city);
         const restaurants = await RestaurantModel.find({ city: new RegExp(`^${city}$`, 'i') });
+        console.log(restaurants);
         if (restaurants.length === 0) {
 
             return res.json({ error: "No restaurants found in this city" });
@@ -53,8 +54,9 @@ Router.get('/', async (req, res) => {
 
 Router.get('/:_id', async (req, res) => {
     try {
-        await ValidateId(_id);
-        const { _id } = res.params;
+        const { _id } = req.params;
+        // await ValidateId(_id);
+
         const restaurant = await RestaurantModel.findById(_id);
         if (!restaurant) {
             return res.status(400).json({ error: "Restaurant Not found" });
@@ -77,8 +79,9 @@ Router.get('/:_id', async (req, res) => {
 
 Router.get('/search/:searchString', async (req, res) => {
     try {
-        await ValidateRestaurantSearchString(searchString);
         const { searchString } = req.params;
+        await ValidateRestaurantSearchString(searchString);
+
         const restaurants = await RestaurantModel.find({
             name: { $regex: searchString, $options: "i" }
         });

@@ -17,8 +17,8 @@ const Router = express.Router();
 Router.get("/:resid", async (req, res) => {
     try {
         const { resid } = req.params;
-        const Reviews = await ReviewModel.find({ restaurants: resid });
-
+        const Reviews = await ReviewModel.find({ restaurant: resid }).populate("user", "fullName").populate("food", "name");
+        console.log(Reviews);
         return res.status(200).json({ Reviews: Reviews });
     } catch (error) {
         return res.status(500).json({ error: error.message })
@@ -27,7 +27,7 @@ Router.get("/:resid", async (req, res) => {
 
 
 /**
- * Route        /:resid
+ * Route        /new
  * des          addding new food/restaurant REviews or rating
  * Params       none
  * Access       public
@@ -47,7 +47,7 @@ Router.post("/new", async (req, res) => {
 
 
 /**
- * Route        /:resid
+ * Route        /delete/:id
  * des          Delete a specific review
  * Params       _id
  * Access       public

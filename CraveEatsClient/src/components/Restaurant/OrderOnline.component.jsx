@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AiOutlineCompass } from "react-icons/ai";
 import { BiTimeFive } from "react-icons/bi";
 
@@ -7,129 +7,17 @@ import FloatMenuBtn from "./Order-Online/FloatMenuButton.component";
 import MenuListContainer from "./Order-Online/MenuListContainer.component";
 import FoodList from "./Order-Online/FoodList.component";
 
+// redux
+import { useSelector, useDispatch } from "react-redux";
+import { getFoodList } from "../../redux/reducers/Food/food.action";
+
+
 function OrderOnline() {
-    const [menu, setMenu] = useState([
-        {
-            name: "Recommended",
-            items: [
-                {
-                    name: "Dal Makhani",
-                    image:
-                        "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/20190503-delish-pineapple-baked-salmon-horizontal-ehg-450-1557771120.jpg",
-                    isAddedToCart: false,
-                    rating: 4,
-                    description: "Whole black lentils cooked overnight . ",
-                    price: "333",
-                },
-                {
-                    name: "Murg Rara Boneless (6 pieces)",
-                    image:
-                        "https://b.zmtcdn.com/data/dish_photos/12e/96f768852181de77ff1b4b822866b12e.jpg",
-                    isAddedToCart: true,
-                    rating: 4,
-                    description: "Whole black lentils cooked overnight . ",
-                    price: "320",
-                },
-                {
-                    name: "Veg Executive Thali",
-                    image:
-                        "https://b.zmtcdn.com/data/dish_photos/d2d/4e08401c19c04212ca3a4aed3355dd2d.jpg",
-                    isAddedToCart: false,
-                    rating: 4,
-                    description: "Whole black lentils cooked overnight . ",
-                    price: "345",
-                },
-                {
-                    name: "Dal Makhani",
-                    image:
-                        "https://b.zmtcdn.com/data/dish_photos/e70/5e7413385f2c359c1148aea11a71fe70.jpg",
-                    isAddedToCart: false,
-                    rating: 4,
-                    description: "Whole black lentils cooked overnight . ",
-                    price: "333",
-                },
-            ],
-        },
-        {
-            name: "Momos",
-            items: [
-                {
-                    name: "Veg Executive Thali",
-                    image:
-                        "https://b.zmtcdn.com/data/dish_photos/d2d/4e08401c19c04212ca3a4aed3355dd2d.jpg",
-                    isAddedToCart: false,
-                    rating: 4,
-                    description: "Whole black lentils cooked overnight . ",
-                    price: "345",
-                },
-                {
-                    name: "Dal Makhani",
-                    image:
-                        "https://b.zmtcdn.com/data/dish_photos/e70/5e7413385f2c359c1148aea11a71fe70.jpg",
-                    isAddedToCart: false,
-                    rating: 4,
-                    description: "Whole black lentils cooked overnight . ",
-                    price: "333",
-                },
-            ],
-        },
-        {
-            name: "Chinese Starters",
-            items: [
-                {
-                    name: "Veg Executive Thali",
-                    image:
-                        "https://b.zmtcdn.com/data/dish_photos/d2d/4e08401c19c04212ca3a4aed3355dd2d.jpg",
-                    isAddedToCart: false,
-                    rating: 4,
-                    description: "Whole black lentils cooked overnight . ",
-                    price: "345",
-                },
-                {
-                    name: "Dal Makhani",
-                    image:
-                        "https://b.zmtcdn.com/data/dish_photos/e70/5e7413385f2c359c1148aea11a71fe70.jpg",
-                    isAddedToCart: false,
-                    rating: 4,
-                    description: "Whole black lentils cooked overnight . ",
-                    price: "333",
-                },
-            ],
-        },
-        {
-            name: "Breads",
-            items: [
-                {
-                    name: "Veg Executive Thali",
-                    image:
-                        "https://b.zmtcdn.com/data/dish_photos/d2d/4e08401c19c04212ca3a4aed3355dd2d.jpg",
-                    isAddedToCart: false,
-                    rating: 4,
-                    description: "Whole black lentils cooked overnight . ",
-                    price: "345",
-                },
-                {
-                    name: "Dal Makhani",
-                    image:
-                        "https://b.zmtcdn.com/data/dish_photos/e70/5e7413385f2c359c1148aea11a71fe70.jpg",
-                    isAddedToCart: false,
-                    rating: 4,
-                    description: "Whole black lentils cooked overnight . ",
-                    price: "333",
-                },
-            ],
-        },
-        {
-            name: "Rice and Biryani",
-            items: [],
-        },
-        {
-            name: "Rolls",
-            items: [],
-        },
-    ]);
+
+    const [menu, setMenu] = useState([]);
+    const [selected, setSelected] = useState("");
     // By default Redommended selected
-    const [selected, setSelected] = useState("Recommended");
+    //const [selected, setSelected] = useState("Recommended");
 
     const onClickHandler = (e) => {
         if (e.target.id) {
@@ -137,7 +25,18 @@ function OrderOnline() {
         }
         return;
     };
+    const dispatch = useDispatch();
 
+    const reduxState = useSelector(
+        (globalState) => globalState.restaurant.selectedRestaurant.restaurant
+    );
+
+    useEffect(() => {
+        reduxState &&
+            dispatch(getFoodList(reduxState.menu)).then((data) => {
+                setMenu(data.payload.menus.menus);
+            });
+    }, [reduxState]);
     return (
         <>
             <div className="w-full h-screen flex">

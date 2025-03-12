@@ -18,6 +18,24 @@ const upload = multer({ storage });
 import { s3Upload } from '../../utils/s3';
 
 
+/**
+ * Router       /
+ * Des          get specific id image
+ * Params       none
+ * Access       Public
+ * Method       Post
+ */
+
+Router.get("/:_id", async (req, res) => {
+    try {
+        const { _id } = req.params;
+        const image = await ImageModel.findById(_id);
+
+        return res.status(200).json(image);
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+});
 
 /**
  * Router       /

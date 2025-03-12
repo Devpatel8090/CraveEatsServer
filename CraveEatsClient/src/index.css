@@ -6,3 +6,14 @@
     width: inherit;
     height: inherit;
   }
+
+  .react-stars {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.rating-container {
+    display: flex;
+    align-items: center;
+}

@@ -3,6 +3,10 @@ import React, { useState } from "react";
 // components
 import MenuCollection from "../MenuCollection.component";
 
+
+
+
+
 function Menu() {
     const [menus] = useState([
         "https://b.zmtcdn.com/data/menus/506/19119506/2d28e4999d61f37c8a19e852284abfbf.jpg",

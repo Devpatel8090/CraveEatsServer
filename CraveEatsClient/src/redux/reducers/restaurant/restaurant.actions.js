@@ -7,7 +7,7 @@ export const getRestaurant = () => async (dispatch) => {
     try {
         const restaurantList = await axios({
             method: "GET",
-            url: "http://localhost:3000/restaurant/?city=ncr",
+            url: "http://localhost:3000/restaurant/?city=Los Angeles",
         });
 
         return dispatch({ type: GET_RESTAURANT, payload: restaurantList.data });
@@ -17,5 +17,23 @@ export const getRestaurant = () => async (dispatch) => {
             message: error.message,
             status: error.response ? error.response.status : null,
         });
+    }
+};
+
+export const getSpecificRestaurant = (_id) => async (dispatch) => {
+    try {
+
+        const restaurant = await axios({
+            method: "GET",
+            url: `http://localhost:3000/restaurant/${_id}`,
+        });
+        console.log(restaurant);
+
+        return dispatch({
+            type: GET_SPECIFIC_RESTAURANT,
+            payload: restaurant.data,
+        });
+    } catch (error) {
+        return dispatch({ type: "ERROR", payload: error });
     }
 };

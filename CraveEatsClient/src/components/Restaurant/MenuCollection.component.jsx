@@ -1,11 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ImageViewer from "react-simple-image-viewer";
+
+// redux
+import { useDispatch } from "react-redux";
+import { getImage } from "./../../redux/reducers/Image/image.action"
+
+
 
 function MenuCollection(props) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [currentImage, setCurrentImage] = useState(0);
     const closeViewer = () => setIsMenuOpen(false);
     const openViewer = () => setIsMenuOpen(true);
+
+
+
+
 
     return (
         <>
