@@ -1,5 +1,6 @@
 // Libraries
 import express from "express";
+import passport from "passport";
 
 // import database model
 import { ReviewModel } from "../../database/allModelsIndex";
@@ -30,14 +31,15 @@ Router.get("/:resid", async (req, res) => {
  * Route        /new
  * des          addding new food/restaurant REviews or rating
  * Params       none
- * Access       public
+ * Access       private
  * Method       Post
  */
 
-Router.post("/new", async (req, res) => {
+Router.post("/new", passport.authenticate("jwt"), async (req, res) => {
     try {
+        const { _id } = req.session.passport.user._doc;
         const { reviewData } = req.body;
-        const Reviews = await ReviewModel.create({ ...reviewData });
+        const Reviews = await ReviewModel.create({ ...reviewData, user: _id });
 
         return res.status(200).json({ Reviews: "Successfully created review" });
     } catch (error) {
