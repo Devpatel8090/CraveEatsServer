@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 
+// redux
+import { useDispatch } from "react-redux";
+import { signUp } from "../../redux/reducers/Auth/auth.action";
+
 function Signup({ isOpen, onClose }) {
     const [userData, setUserData] = useState({
         email: "",
@@ -8,16 +12,23 @@ function Signup({ isOpen, onClose }) {
         fullName: "",
     });
 
+    const dispatch = useDispatch();
+
     const handleChange = (e) => {
         setUserData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
     };
 
-    const closeModal = () => {
-        setIsOpen(false);
+    const submit = () => {
+        dispatch(signUp(userData));
+        setUserData({ email: "", password: "", fullName: "" });
+        console.log(userData);
+        onclose();
     };
 
+
+
     const googleSignUp = () => {
-        window.location.href = "http://localhost:4000/auth/google";
+        window.location.href = "http://localhost:3000/auth/google";
     };
 
     return (
@@ -82,7 +93,7 @@ function Signup({ isOpen, onClose }) {
                                 <button
                                     type="button"
                                     className="w-full text-center bg-CraveEats-400 text-white py-2 rounded-lg mt-2 hover:bg-CraveEats-700"
-                                    onClick={closeModal}
+                                    onClick={submit}
                                 >
                                     Sign Up
                                 </button>

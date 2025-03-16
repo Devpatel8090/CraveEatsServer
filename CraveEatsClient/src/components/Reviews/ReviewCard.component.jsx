@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 
 // Redux
 import { useDispatch } from "react-redux";
-import { getUser } from "../../redux/reducers/User/user.actions";
+import { getUser } from "../../redux/reducers/User/user.action";
 
 
 function ReviewCard(props) {

@@ -3,7 +3,8 @@ import { Link, useParams } from "react-router-dom";
 import { IoMdArrowDropright } from "react-icons/io";
 import Slider from "react-slick";
 import ReactStars from "react-rating-stars-component";
-import { Rating } from 'react-simple-star-rating';
+//import { Rating } from 'react-simple-star-rating';
+import { Rating } from '@smastrom/react-rating'
 
 // components
 import { NextArrow, PrevArrow } from "../Navbar/carousalArrow.component";
@@ -11,6 +12,7 @@ import MenuCollection from "../Restaurant/MenuCollection.component";
 import SimilarRestaurantCard from "../Restaurant/SimilarRestaurantCards.component";
 import ReviewCard from "../Reviews/ReviewCard.component";
 import MapView from "./MapView.component";
+import CustomStarRating from "../Star/CustomStar.component";
 
 // redux
 import { useSelector, useDispatch } from "react-redux";
@@ -33,10 +35,7 @@ function Overview() {
     // }
     const [rating, setRating] = useState(0);
 
-    const handleRating = (rate) => {
-        setRating(rate);
-        console.log("Rated:", rate);
-    };
+
 
     const reduxState = useSelector(
         (globalState) => globalState.restaurant.selectedRestaurant.restaurant
@@ -94,9 +93,6 @@ function Overview() {
         ],
     };
 
-    const ratingChanged = (newRating) => {
-        console.log(newRating);
-    };
 
     //   "1234324234.343,23414324214.243"
     //   mapAddress?.split(",")   // ["1234324234.343", "23414324214.243"]
@@ -151,24 +147,36 @@ function Overview() {
                         <div className="my-4">
                             <h4 className="text-lg font-medium">Rate your delivery experience</h4>
                             {/* <Rating onClick={handleRating} initialValue={rating} /> */}
-                            <div className="inline-flex gap-3 flex-row">
-                                <Rating
+
+                            {/* <Rating
                                     count={5}
-                                    onChange={ratingChanged}
+                                    onChange={handleRating}
                                     size={30}
                                     activeColor="#ffd700"
                                     isHalf={true}
-                                />
-                            </div>
+                                /> */}
+                            {/* <Rating
+                                    style={{ maxWidth: 180 }}
+                                    value={rating}
+                                    onChange={handleRating}
+                                    isHalf={true}
+                                    activeFillColor='#f59e0b'
+                                    inactiveFillColor='#ffedd5'
+                                /> */}
+
+
+                            <CustomStarRating rating={rating} setRating={setRating} />
+
                             {/* <ReactStars
                                 count={5}
-                                onChange={ratingChanged}
-                                size={30} // Adjust size for visibility
+                                onChange={handleRating}
+                                // Adjust size for visibility
                                 activeColor="#ffd700"
                                 isHalf={true} // Allows half-stars
                             />
 
-                            <ReactStars count={5} onChange={ratingChanged} activeColor="#ffd700" /> */}
+                            <ReactStars count={5} onChange={handleRating} activeColor="#ffd700" /> */}
+
                             {reviews?.map((review, index) => (
                                 <ReviewCard {...review} key={index} />
                             ))}

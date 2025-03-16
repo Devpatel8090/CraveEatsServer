@@ -2,19 +2,31 @@
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 
+// redux
+import { useDispatch } from "react-redux";
+import { signIn } from "../../redux/reducers/Auth/auth.action";
+
+
 function Signin({ isOpen, onClose }) {
     const [userData, setUserData] = useState({
         email: "",
         password: "",
     });
 
+    const dispatch = useDispatch();
 
     const handleChange = (e) => {
         setUserData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
     };
+    const submit = () => {
+        dispatch(signIn(userData));
+        setUserData({ email: "", password: "" });
+        onClose();
+    };
+
 
     const googleSignIn = () =>
-        (window.location.href = "http://localhost:4000/auth/google");
+        (window.location.href = "http://localhost:3000/auth/google");
 
     return (
         <>
@@ -64,7 +76,7 @@ function Signin({ isOpen, onClose }) {
                             </div>
                             <button
                                 className="w-full text-center bg-CraveEats-400 text-white py-2 rounded-lg mt-2"
-                                onClick={onClose}
+                                onClick={submit}
                             >
                                 Sign In
                             </button>

@@ -21,7 +21,7 @@ function Reviews() {
         if (reduxState) {
             dispatch(getReviews(reduxState?._id)).then((data) => {
                 console.log("Fetched Reviews:", data.payload.Reviews);
-                setReviews(data.payload.review.reviews);
+                setReviews(data.payload.Reviews);
             });
         }
     }, [reduxState]);

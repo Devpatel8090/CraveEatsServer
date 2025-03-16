@@ -2,6 +2,13 @@ import { useState } from "react";
 import Rating from "react-rating-stars-component";
 import { useParams } from "react-router-dom";
 
+// redux
+import { useDispatch } from "react-redux";
+import { postReview } from "../../../redux/reducers/Review/review.action";
+
+// component
+import CustomStarRating from "../../Star/CustomStar.component";
+
 export default function ReviewModal({ isOpen, setIsOpen }) {
     const [reviewData, setReviewData] = useState({
         subject: "",
@@ -10,8 +17,21 @@ export default function ReviewModal({ isOpen, setIsOpen }) {
         isFoodReview: false,
         rating: 0,
     });
-
+    const [rating, setRating] = useState(0);
     const { id } = useParams();
+
+    const dispatch = useDispatch();
+    const submit = () => {
+        dispatch(postReview({ ...reviewData, restaurant: id }));
+        setReviewData({
+            subject: "",
+            reviewText: "",
+            isRestaurantReview: false,
+            isFoodReview: false,
+            rating: 0,
+        });
+        closeModal();
+    };
 
     const handleChange = (e) => {
         setReviewData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
@@ -51,6 +71,7 @@ export default function ReviewModal({ isOpen, setIsOpen }) {
             rating: 0,
         });
 
+
         closeModal(); // Close the modal after submission
     };
 
@@ -87,15 +108,17 @@ export default function ReviewModal({ isOpen, setIsOpen }) {
                                             checked={reviewData.isFoodReview}
                                             onChange={toggleDelivery}
                                         />
-                                        <label htmlFor="delivery">Deliver</label>
+                                        <label htmlFor="delivery">Delivery</label>
                                     </div>
                                 </div>
-                                <Rating
+                                {/* <Rating
                                     count={5}
                                     size={24}
                                     value={reviewData.rating}
                                     onChange={handleRating}
-                                />
+                                /> */}
+                                <CustomStarRating rating={reviewData.rating > 0 ? reviewData.rating : rating} setRating={handleRating} />
+
 
                                 <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                                     <div className="w-full flex flex-col gap-2">
@@ -126,7 +149,7 @@ export default function ReviewModal({ isOpen, setIsOpen }) {
                                         <button
                                             type="submit"
                                             className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-                                        >
+                                            onClick={submit} >
                                             Submit
                                         </button>
                                     </div>

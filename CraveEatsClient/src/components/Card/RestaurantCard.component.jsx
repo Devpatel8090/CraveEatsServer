@@ -27,7 +27,7 @@ function RestaurantCard(props) {
         <Link to={`/restaurant/${props._id}/overview`} className="w-full md:w-1/2 lg:w-1/3">
             <div className="bg-white p-4 mb-4 w-full rounded-2xl transition duration-700 ease-in-out hover:shadow-lg ">
                 <div className="w-full  lg:h-64 relative">
-                    <div className=" w-full bottom-4 flex items-end justify-between">
+                    <div className=" w-full bottom-4 h-64 flex items-end justify-between">
                         <div className="flex flex-col gap-2 items-start absolute">
                             {props.isPro && (
                                 <span className="bg-CraveEats-400 text-white px-2 py-1 rounded text-sm">
@@ -41,9 +41,10 @@ function RestaurantCard(props) {
                             )}
                         </div>
                         <img
+
                             src={image.images.length > 0 ? image.images[0].Location : "https://aadhya-restaurant-bucket.s3.us-west-1.amazonaws.com/No+image+Availble.png"}
                             alt="food"
-                            className="w-full h-full rounded-2xl"
+                            className="w-full h-64 rounded-2xl"
                         />
                     </div>
                     <div className="my-2 flex flex-col gap-2">

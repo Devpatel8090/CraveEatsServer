@@ -15,7 +15,6 @@ export const getUser = (_id) => async (dispatch) => {
         dispatch({ type: "ERROR", payload: error });
     }
 };
-
 export const getMySelf = () => async (dispatch) => {
     try {
         const User = await axios({

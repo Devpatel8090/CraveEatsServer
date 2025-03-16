@@ -2,6 +2,7 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Slider from 'react-slick';
+import React, { useEffect } from "react";
 
 //HOC
 import HomeLayoutHoc from './HOC/Home.hoc';
@@ -13,6 +14,7 @@ import CheckoutLayoutHoc from './HOC/Checkout.HOC';
 import HomePage from "./pages/HomePage";
 import RestaurantPage from "./pages/RestaurantPage";
 import CheckoutPage from './pages/CheckOutPage';
+import GoogleAuth from "./pages/googleAuthPage";
 
 
 // Components
@@ -23,7 +25,19 @@ import Menu from './components/Restaurant/Menu/Menu.component';
 import Photos from './components/Restaurant/Photos/Photos.component';
 
 
+// redux
+import { useDispatch } from "react-redux";
+import { getMySelf } from "./redux/reducers/User/user.action";
+
+
 function App() {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getMySelf());
+  }, [localStorage]);
+
 
 
   return (
@@ -34,6 +48,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate to="/delivery" />} />
         <Route path="/:type" element={<HomeLayoutHoc component={HomePage} />} />
+        <Route path="//google/:token" element={<HomeLayoutHoc component={GoogleAuth} />} />
         {/* Restaurant page with RestaurantLayoutHoc */}
 
         <Route path="/restaurant/:id/*" element={<RestaurantLayoutHoc><RestaurantPage /></RestaurantLayoutHoc>}>

@@ -7,7 +7,7 @@
     height: inherit;
   }
 
-  .react-stars {
+  /* .react-stars {
     display: flex;
     justify-content: start;
     align-items: center;
@@ -16,4 +16,17 @@
 .rating-container {
     display: flex;
     align-items: center;
+} */
+/* button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+} */
+.on {
+  color: #f59e0b;
 }
+.off {
+  color: #ffedd5;
+}
+
