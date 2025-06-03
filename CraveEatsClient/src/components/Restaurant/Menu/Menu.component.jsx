@@ -22,11 +22,13 @@ function Menu() {
         if (reduxState)
             dispatch(getImage(reduxState?.menuImages)).then((data) => {
                 const images = [];
-                data.payload.images.map(({ location }) => images.push(location));
+                data.payload.images.map(({ Location }) => images.push(Location));
                 console.log(images);
                 setMenu(images);
             });
     }, [reduxState]);
+    console.log(menus);
+    console.log(reduxState);
 
     return (
         <div className="flex flex-wrap gap-3">

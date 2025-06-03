@@ -15,6 +15,8 @@ import HomePage from "./pages/HomePage";
 import RestaurantPage from "./pages/RestaurantPage";
 import CheckoutPage from './pages/CheckOutPage';
 import GoogleAuth from "./pages/googleAuthPage";
+import SuccessPage from './pages/SuccessPage';
+import CancelPage from './pages/CancelPage';
 
 
 // Components
@@ -23,6 +25,7 @@ import OrderOnline from './components/Restaurant/OrderOnline.component';
 import Reviews from './components/Restaurant/Reviews/Reviews.component';
 import Menu from './components/Restaurant/Menu/Menu.component';
 import Photos from './components/Restaurant/Photos/Photos.component';
+
 
 
 // redux
@@ -59,6 +62,8 @@ function App() {
           <Route path="menu" element={<Menu />} />
           <Route path="photos" element={<Photos />} />
         </Route>
+        <Route path='/success' element={<SuccessPage />} />
+        <Route path='/cancel' element={<CancelPage />} />
         <Route path="/checkout/orders" element={<CheckoutLayoutHoc component={CheckoutPage} />} />
       </Routes>
 

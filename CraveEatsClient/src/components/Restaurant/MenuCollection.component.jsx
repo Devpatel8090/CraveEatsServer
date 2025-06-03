@@ -4,12 +4,12 @@ import ImageViewer from "react-simple-image-viewer";
 
 function MenuCollection(props) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [currentImage, setCurrentImage] = useState(0);
+    const [currentImage, setCurrentImage] = useState();
     const closeViewer = () => setIsMenuOpen(false);
     const openViewer = () => setIsMenuOpen(true);
 
 
-
+    console.log(props);
 
 
     return (

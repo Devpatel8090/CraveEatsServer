@@ -3,25 +3,7 @@ import { TiStarFullOutline } from "react-icons/ti";
 import dayjs from "dayjs";
 
 
-// Redux
-import { useDispatch } from "react-redux";
-import { getUser } from "../../redux/reducers/User/user.action";
-
-
 function ReviewCard(props) {
-    const [user, setUser] = useState("Dev Patel");
-    const dispatch = useDispatch();
-
-    // useEffect(() => {
-
-    //     console.log(props, "from reuview datAS");
-    //     if (props) {
-    //         dispatch(getUser(props.user)).then((data) => {
-    //             setUser(data.payload.user.fullName);
-    //         });
-    //     }
-    // }, []);
-
 
     return (
         <>

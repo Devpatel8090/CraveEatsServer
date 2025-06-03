@@ -3,7 +3,7 @@ import React, { useState } from "react";
 // component
 import ReviewModal from "./ReviewModal.component";
 
-function AddReviewCard() {
+function AddReviewCard({ onReviewAdded }) {
     const [isOpen, setIsOpen] = useState(false);
 
     const openModal = () => {
@@ -16,7 +16,7 @@ function AddReviewCard() {
 
     return (
         <>
-            <ReviewModal isOpen={isOpen} setIsOpen={setIsOpen} />
+            <ReviewModal isOpen={isOpen} setIsOpen={setIsOpen} onReviewAdded={onReviewAdded} />
             <h3 className="text-xl font-medium">Rate your experience for</h3>
             <div className="flex items-center gap-3">
                 <div className="flex items-center gap-2">

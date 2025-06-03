@@ -1,4 +1,4 @@
-import { GET_FOOD_LIST } from "./food.type";
+import { GET_FOOD_LIST, GET_FOOD_CATEGORY_LIST, GET_FOOD } from "./food.type";
 
 const initialState = {
     foodList: [],
@@ -11,6 +11,16 @@ const foodReducer = (state = initialState, action) => {
                 ...state,
                 foodList: action.payload,
             };
+        case GET_FOOD_CATEGORY_LIST:
+            return {
+                ...state,
+                foodCategories: action.payload
+            };
+        case GET_FOOD:
+            return {
+                ...state,
+                foodDetails: action.payload
+            }
         default:
             return {
                 ...state,

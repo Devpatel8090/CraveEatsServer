@@ -9,7 +9,7 @@ import { postReview } from "../../../redux/reducers/Review/review.action";
 // component
 import CustomStarRating from "../../Star/CustomStar.component";
 
-export default function ReviewModal({ isOpen, setIsOpen }) {
+export default function ReviewModal({ isOpen, setIsOpen, onReviewAdded }) {
     const [reviewData, setReviewData] = useState({
         subject: "",
         reviewText: "",
@@ -21,8 +21,15 @@ export default function ReviewModal({ isOpen, setIsOpen }) {
     const { id } = useParams();
 
     const dispatch = useDispatch();
-    const submit = () => {
-        dispatch(postReview({ ...reviewData, restaurant: id }));
+    const submit = async () => {
+
+        const response = await dispatch(postReview({ ...reviewData, restaurant: id }));
+        if (response.payload) {
+            console.log("New review added:", response.payload);
+            if (onReviewAdded) {
+                onReviewAdded(response.payload);
+            }
+        }
         setReviewData({
             subject: "",
             reviewText: "",
@@ -55,24 +62,6 @@ export default function ReviewModal({ isOpen, setIsOpen }) {
             isRestaurantReview: false,
             isFoodReview: !prev.isFoodReview,
         }));
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Add the logic to handle the review submission here
-        console.log("Review submitted", reviewData);
-
-        // Reset form after submission
-        setReviewData({
-            subject: "",
-            reviewText: "",
-            isRestaurantReview: false,
-            isFoodReview: false,
-            rating: 0,
-        });
-
-
-        closeModal(); // Close the modal after submission
     };
 
     function closeModal() {
@@ -120,7 +109,7 @@ export default function ReviewModal({ isOpen, setIsOpen }) {
                                 <CustomStarRating rating={reviewData.rating > 0 ? reviewData.rating : rating} setRating={handleRating} />
 
 
-                                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                                <form onSubmit={submit} className="flex flex-col gap-4">
                                     <div className="w-full flex flex-col gap-2">
                                         <label htmlFor="subject">Subject</label>
                                         <input
@@ -148,8 +137,7 @@ export default function ReviewModal({ isOpen, setIsOpen }) {
                                     <div className="mt-4 flex justify-end">
                                         <button
                                             type="submit"
-                                            className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-                                            onClick={submit} >
+                                            className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500">
                                             Submit
                                         </button>
                                     </div>

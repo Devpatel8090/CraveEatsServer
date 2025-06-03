@@ -26,12 +26,18 @@ function Reviews() {
         }
     }, [reduxState]);
     console.log(reviews);
+
+    const handleNewReview = (newReview) => {
+        setReviews((prevReviews) => [newReview, ...prevReviews]); // Add new review to state
+    };
+
+    console.log(reviews);
     return (
         <>
             <div className="w-full h-full flex-col md:flex md:flex-row relative gap-5">
                 <div className="w-full md:w-8/12 flex flex-col gap-3">
                     <div className="md:hidden mb-4">
-                        <AddReviewCard />
+                        <AddReviewCard onReviewAdded={handleNewReview} />
                     </div>
                     {Array.isArray(reviews) && reviews.map((review) => (
                         <ReviewCard {...review} />
@@ -41,7 +47,7 @@ function Reviews() {
                     style={{ height: "fit-content" }}
                     className="hidden md:flex items-start md:w-4/12 sticky rounded-xl top-2 bg-white p-4 shadow-md flex-col gap-3"
                 >
-                    <AddReviewCard />
+                    <AddReviewCard onReviewAdded={handleNewReview} />
                 </aside>
             </div>
         </>

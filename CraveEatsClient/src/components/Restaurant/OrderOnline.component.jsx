@@ -10,6 +10,7 @@ import FoodList from "./Order-Online/FoodList.component";
 // redux
 import { useSelector, useDispatch } from "react-redux";
 import { getFoodList } from "../../redux/reducers/Food/food.action";
+import { data } from "react-router";
 
 
 function OrderOnline() {
@@ -34,9 +35,11 @@ function OrderOnline() {
     useEffect(() => {
         reduxState &&
             dispatch(getFoodList(reduxState.menu)).then((data) => {
-                setMenu(data.payload.menus.menus);
+                setMenu(data.payload.menu.menus);
+                console.log(data);
             });
     }, [reduxState]);
+    console.log(reduxState);
     return (
         <>
             <div className="w-full h-screen flex">

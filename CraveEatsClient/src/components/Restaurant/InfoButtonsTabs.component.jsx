@@ -4,7 +4,7 @@ import classnames from "classnames";
 function InfoButtonsTabs(props) {
     return (
         <>
-            <button
+            <button onClick={props.onClick}
                 className={classnames(
                     "flex items-center gap-3 border border-CraveEats-400 px-4 py-2 rounded-lg",
                     {
