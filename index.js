@@ -31,6 +31,8 @@ import Image from "./API/Image/index";
 import Order from "./API/Orders/index";
 import Review from "./API/Reviews/index";
 import User from "./API/User/index";
+import Payment from "./API/Payments/index";
+
 
 
 
@@ -63,6 +65,7 @@ craveEats.use("/image", Image);
 craveEats.use("/order", Order);
 craveEats.use("/review", Review);
 craveEats.use("/user", User);
+craveEats.use("/payment", Payment);
 
 
 craveEats.listen(3000, () => {
