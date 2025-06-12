@@ -1,10 +1,11 @@
+import dotenv from "dotenv";
 
 // Libraries
 import express from "express";
-import dotenv from "dotenv";
-dotenv.config();
+
 
 const Router = express.Router();
+console.log("🔐 Stripe Private Key:", process.env.STRIPE_PRIVATE_KEY);
 const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY);
 
 
