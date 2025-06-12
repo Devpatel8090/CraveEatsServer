@@ -1,10 +1,10 @@
-require(`dotenv`).config();
+// require(`dotenv`).config();
 import dotenv from "dotenv";
 dotenv.config();
 // Babel compiler   is used to convert the javascript (i.e Es6 to Es5 (browser compatibility))
-require("@babel/core").transform("code", {
-    presets: ["@babel/preset-env"],
-});
+// require("@babel/core").transform("code", {
+//     presets: ["@babel/preset-env"],
+// });
 import express from "express";  // ES6
 import passport from "passport";
 const session = require("express-session");
