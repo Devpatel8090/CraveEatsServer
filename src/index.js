@@ -66,8 +66,9 @@ craveEats.use("/review", Review);
 craveEats.use("/user", User);
 craveEats.use("/payment", Payment);
 
+const PORT = process.env.PORT || 3000;
 
-craveEats.listen(3000, () => {
+craveEats.listen(PORT, () => {
     ConnectDB().then(() => {
         console.log("server is running!!!");
     }).catch((error) => {
