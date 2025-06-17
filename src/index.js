@@ -1,3 +1,4 @@
+
 // require(`dotenv`).config();
 import dotenv from "dotenv";
 dotenv.config();
@@ -5,6 +6,8 @@ dotenv.config();
 // require("@babel/core").transform("code", {
 //     presets: ["@babel/preset-env"],
 // });
+
+
 import express from "express";  // ES6
 import passport from "passport";
 const session = require("express-session");
@@ -69,8 +72,9 @@ craveEats.use("/review", Review);
 craveEats.use("/user", User);
 craveEats.use("/payment", Payment);
 
+const PORT = process.env.PORT || 3000;
 
-craveEats.listen(3000, () => {
+craveEats.listen(PORT, () => {
     ConnectDB().then(() => {
         console.log("server is running!!!");
     }).catch((error) => {
