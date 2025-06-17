@@ -7,7 +7,7 @@ export const getRestaurant = () => async (dispatch) => {
     try {
         const restaurantList = await axios({
             method: "GET",
-            url: "http://localhost:3000/restaurant/?city=Los Angeles",
+            url: "https://craveeats-server-a514484aed4c.herokuapp.com/restaurant/?city=Los Angeles",
         });
 
         return dispatch({ type: GET_RESTAURANT, payload: restaurantList.data });
@@ -25,7 +25,7 @@ export const getSpecificRestaurant = (_id) => async (dispatch) => {
 
         const restaurant = await axios({
             method: "GET",
-            url: `http://localhost:3000/restaurant/${_id}`,
+            url: `https://craveeats-server-a514484aed4c.herokuapp.com/restaurant/${_id}`,
         });
         console.log(restaurant);
 

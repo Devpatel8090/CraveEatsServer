@@ -7,7 +7,7 @@ export const getImage = (_id) => async (dispatch) => {
     try {
         const image = await axios({
             method: "GET",
-            url: `http://localhost:3000/image/${_id}`,
+            url: `https://craveeats-server-a514484aed4c.herokuapp.com/image/${_id}`,
         });
 
         return dispatch({ type: GET_IMAGE, payload: image.data });

@@ -7,7 +7,7 @@ export const getFood = (foodId) => async (dispatch) => {
     try {
         const Food = await axios({
             method: "GET",
-            url: `http://localhost:3000/food/${foodId}`,
+            url: `https://craveeats-server-a514484aed4c.herokuapp.com/food/${foodId}`,
         });
         return dispatch({ type: GET_FOOD, payload: Food.data });
     } catch (error) {
@@ -19,7 +19,7 @@ export const getFoodCategories = () => async (dispatch) => {
     try {
         const categories = await axios({
             method: "GET",
-            url: `http://localhost:3000/food/categories`,
+            url: `https://craveeats-server-a514484aed4c.herokuapp.com/food/categories`,
         });
         return dispatch({ type: GET_FOOD_CATEGORY_LIST, payload: categories.data });
     } catch (error) {
@@ -31,7 +31,7 @@ export const getFoodList = (menuId) => async (dispatch) => {
     try {
         const Menu = await axios({
             method: "GET",
-            url: `http://localhost:3000/menu/list/${menuId}`,
+            url: `https://craveeats-server-a514484aed4c.herokuapp.com/menu/list/${menuId}`,
         });
         return dispatch({ type: GET_FOOD_LIST, payload: Menu.data });
     } catch (error) {

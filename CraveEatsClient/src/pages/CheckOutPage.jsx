@@ -46,7 +46,7 @@ function CheckoutPage() {
     console.log(reduxStateCart);
     const totalAmount = reduxStateCart.reduce((total, current) => total + current.totalPrice, 0);
 
-    const apiURL = import.meta.env.VITE_API_URL || "http://localhost:3000/payment";
+    const apiURL = import.meta.env.VITE_API_URL || "https://craveeats-server-a514484aed4c.herokuapp.com/payment";
     const makePayment = async () => {
         // Load Stripe with public key
         const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);

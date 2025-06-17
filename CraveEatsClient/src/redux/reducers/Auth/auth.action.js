@@ -10,7 +10,7 @@ export const signIn = (userData) => async (dispatch) => {
     try {
         const User = await axios({
             method: "POST",
-            url: `http://localhost:3000/auth/signin`,
+            url: `https://craveeats-server-a514484aed4c.herokuapp.com/auth/signin`,
             data: { credentials: userData },
         });
 
@@ -31,7 +31,7 @@ export const signUp = (userData) => async (dispatch) => {
     try {
         const User = await axios({
             method: "POST",
-            url: `http://localhost:3000/auth/signup`,
+            url: `https://craveeats-server-a514484aed4c.herokuapp.com/auth/signup`,
             data: { credentials: userData },
         });
 

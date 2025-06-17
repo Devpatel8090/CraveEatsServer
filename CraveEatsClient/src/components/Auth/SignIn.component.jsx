@@ -26,7 +26,7 @@ function Signin({ isOpen, onClose }) {
 
 
     const googleSignIn = () =>
-        (window.location.href = "http://localhost:3000/auth/google");
+        (window.location.href = "https://craveeats-server-a514484aed4c.herokuapp.com/auth/google");
 
     return (
         <>

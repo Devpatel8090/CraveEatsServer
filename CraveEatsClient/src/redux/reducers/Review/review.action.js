@@ -7,7 +7,7 @@ export const getReviews = (resId) => async (dispatch) => {
     try {
         const reviewList = await axios({
             method: "GET",
-            url: `http://localhost:3000/review/${resId}`,
+            url: `https://craveeats-server-a514484aed4c.herokuapp.com/review/${resId}`,
         });
         console.log(reviewList);
         return dispatch({ type: GET_REVIEW, payload: reviewList.data });
@@ -20,7 +20,7 @@ export const postReview = (reviewData) => async (dispatch) => {
     try {
         await axios({
             method: "POST",
-            url: `http://localhost:3000/review/new`,
+            url: `https://craveeats-server-a514484aed4c.herokuapp.com/review/new`,
             data: { reviewData },
         });
         console.log("Posted review", reviewData);
