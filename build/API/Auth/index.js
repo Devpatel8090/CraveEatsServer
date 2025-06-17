@@ -130,6 +130,6 @@ Router.get("/google", _passport["default"].authenticate("google", {
 Router.get("/google/callback", _passport["default"].authenticate("google", {
   failureRedirect: "/"
 }), function (req, res) {
-  return res.redirect("http://localhost:3000/google/".concat(req.session.passport.user.token));
+  return res.redirect("https://craveeats-server-a514484aed4c.herokuapp.com/google/".concat(req.session.passport.user.token));
 });
 var _default = exports["default"] = Router;
