@@ -1,0 +1,34 @@
+# Ignore Node.js dependencies
+node_modules/
+
+# Ignore environment variables
+.env
+dist/
+# Ignore log files
+logs/
+*.log
+
+# Ignore database files (if any)
+
+*.sqlite
+*.db
+*.db-wal
+*.db-shm
+
+# Ignore compiled and temporary files
+*.out
+*.lock
+*.pid
+
+# Ignore npm debug files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Ignore OS-specific and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+
+.Dockerfile
+.Dockerfile.dev
